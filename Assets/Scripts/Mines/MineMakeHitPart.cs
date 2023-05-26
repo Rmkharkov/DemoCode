@@ -1,6 +1,5 @@
 ﻿using Characters.Fight;
 using UnityEngine;
-using Views.Mines;
 
 namespace Mines
 {

@@ -1,10 +1,7 @@
-﻿using System;
-using Characters;
-using Characters.Death;
+﻿using Characters;
 using Characters.Moving;
 using Misc;
 using Regulators.ItemNumberRegulator;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Regulators

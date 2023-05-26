@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Views.Mines
+﻿namespace Mines
 {
     public class MineMakeHitController : BaseController<MineMakeHitModel>
     {

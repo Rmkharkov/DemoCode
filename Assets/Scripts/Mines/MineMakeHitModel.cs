@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Views.Mines
+﻿namespace Mines
 {
     [System.Serializable]
     public class MineMakeHitModel : BaseModel

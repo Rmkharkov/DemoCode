@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Characters.Moving;
 using Placing;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Regulators.ItemNumberRegulator

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Characters;
+﻿using Characters;
 using Characters.Moving;
 using Regulators.ItemNumberRegulator;
 using UnityEngine;
