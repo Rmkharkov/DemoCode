@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Characters;
 using Regulators.ItemNumberRegulator;
+using UI.ResultScreen;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -35,6 +36,7 @@ namespace Regulators
         private void Start()
         {
             PlayerRegulatorView.Instance.PlayerUpdated.AddListener(SubscribeOnPlayerDeathEvent);
+            UIResultScreenView.Instance.ResultPanelClosed.AddListener(RestartMatch);
 
             RestartMatch();
         }
@@ -42,7 +44,7 @@ namespace Regulators
         private void SubscribeOnPlayerDeathEvent(GameplayItemLinks player)
         {
             player.DeathFlow.DeathStart.AddListener(StopMatch);
-            player.DeathFlow.DeathEnd.AddListener(RestartMatch);
+            player.DeathFlow.DeathEnd.AddListener(ResultMatch);
         }
 
         private void StopMatch()
@@ -50,15 +52,14 @@ namespace Regulators
             _stopMatch.Invoke();
         }
 
-        private async void RestartMatch()
-        {
-            await RestartMatchFlow();
-        }
-
-        private async Task RestartMatchFlow()
+        private void ResultMatch()
         {
             _cleanMatch.Invoke();
-            await Task.Delay(TimeSpan.FromSeconds(1));
+        }
+
+        private async void RestartMatch()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(0.5f));
             _startMatch.Invoke();
         }
     }
