@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Characters;
 using Placing;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace Regulators.ItemNumberRegulator
 {
     public interface IPlayerRegulatorView : IRegulatorView
     {
-        UnityEvent<GameplayItemLinks> PlayerUpdated { get; }
+        event Action<GameplayItemLinks> OnPlayerUpdated;
     }
     public class PlayerRegulatorView : BaseView<PlayerRegulatorModel, PlayerRegulatorController>, IPlayerRegulatorView
     {
@@ -21,9 +22,7 @@ namespace Regulators.ItemNumberRegulator
         
         private readonly List<GameplayItemLinks> _spawned = new List<GameplayItemLinks>();
         public List<GameplayItemLinks> SpawnedItems => _spawned;
-
-        private readonly UnityEvent<GameplayItemLinks> _playerUpdated = new UnityEvent<GameplayItemLinks>();
-        public UnityEvent<GameplayItemLinks> PlayerUpdated => _playerUpdated;
+        public event Action<GameplayItemLinks> OnPlayerUpdated;
         
         public override void Awake()
         {
@@ -33,8 +32,8 @@ namespace Regulators.ItemNumberRegulator
 
         private void Start()
         {
-            GameplayTurnRegulator.Instance.StartMatchEvent.AddListener(SpawnPlayer);
-            GameplayTurnRegulator.Instance.CleanMatchEvent.AddListener(RemovePlayer);
+            GameplayTurnRegulator.Instance.OnStartMatchEvent += SpawnPlayer;
+            GameplayTurnRegulator.Instance.OnCleanMatchEvent += RemovePlayer;
         }
         
         private void SpawnPlayer()
@@ -43,7 +42,7 @@ namespace Regulators.ItemNumberRegulator
             if (player != null)
             {
                 _spawned.Add(player);
-                _playerUpdated.Invoke(player);
+                OnPlayerUpdated?.Invoke(player);
             }
         }
 

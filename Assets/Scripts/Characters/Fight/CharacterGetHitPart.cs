@@ -1,20 +1,19 @@
-﻿using UnityEngine.Events;
+﻿using System;
+using UnityEngine.Events;
 
 namespace Characters.Fight
 {
     public interface IDamageable
     {
         void ApplyDamage();
-        UnityEvent DeathEvent { get; }
+        event Action OnDeathEvent;
     }
     public class CharacterGetHitPart : BaseView<CharacterGetHitModel, CharacterGetHitController>, IDamageable
     {
-
-        private readonly UnityEvent _deathEvent = new UnityEvent();
-        public UnityEvent DeathEvent => _deathEvent;
+        public event Action OnDeathEvent;
         public void ApplyDamage()
         {
-            _deathEvent.Invoke();
+            OnDeathEvent?.Invoke();
         }
     }
 }

@@ -6,47 +6,29 @@ using UnityEngine;
 
 namespace Regulators
 {
-    public class PlayerMovingRegulator : MonoBehaviour
+    public class PlayerMovingRegulator : BaseView<PlayerMovingRegulatorModel, PlayerMovingRegulatorController>
     {
         [SerializeField] private PlayerInputReader playerInputReader;
         private IPlayerInputReader _playerInputReader;
-        
-        private IMovable _playerMove;
-        private bool _canMove;
 
         private void Start()
         {
             playerInputReader.TryGetComponent(out _playerInputReader);
-            PlayerRegulatorView.Instance.PlayerUpdated.AddListener(UpdatePlayerLink);
-            GameplayTurnRegulator.Instance.StopMatchEvent.AddListener(DisableMove);
-            GameplayTurnRegulator.Instance.StartMatchEvent.AddListener(EnableMove);
+            PlayerRegulatorView.Instance.OnPlayerUpdated += Controller.UpdatePlayerLink;
+            GameplayTurnRegulator.Instance.OnStopMatchEvent += Controller.DisableMove;
+            GameplayTurnRegulator.Instance.OnStartMatchEvent += Controller.EnableMove;
         }
 
         private void LateUpdate()
         {
-            if (!_canMove) return;
+            if (!Model.CanMove) return;
             
             if (_playerInputReader.JoystickShift != Vector2.zero)
             {
-                var speed = _playerMove.MoveSpeed;
-                var direction = _playerMove.Transform.position + new Vector3(_playerInputReader.JoystickShift.x, 0, _playerInputReader.JoystickShift.y);
-                _playerMove.MoveTo(Vector3.MoveTowards(_playerMove.Transform.position, direction, speed*Time.deltaTime)); 
+                var speed = Model.PlayerMove.MoveSpeed;
+                var direction = Model.PlayerMove.Transform.position + new Vector3(_playerInputReader.JoystickShift.x, 0, _playerInputReader.JoystickShift.y);
+                Model.PlayerMove.MoveTo(Vector3.MoveTowards(Model.PlayerMove.Transform.position, direction, speed*Time.deltaTime)); 
             }
-        }
-
-        private void UpdatePlayerLink(GameplayItemLinks player)
-        {
-            _playerMove = player.Moving;
-        }
-
-        private void EnableMove()
-        {
-            _canMove = true;
-        }
-
-        private void DisableMove()
-        {
-            _canMove = false;
         }
     }
 }

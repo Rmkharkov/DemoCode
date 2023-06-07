@@ -8,24 +8,22 @@ namespace Characters.Death
 {
     public interface IDeathFlow
     {
-        UnityEvent DeathStart { get; }
-        UnityEvent DeathEnd { get; }
+        event Action OnDeathStart;
+        event Action OnDeathEnd;
     }
-    public class DeathFlow : MonoBehaviour, IDeathFlow
+
+    public class DeathFlow : BaseView<DeathFlowModel, DeathFlowController>, IDeathFlow
     {
         [SerializeField] private CharacterGetHitPart getHitPart;
         [SerializeField] private ParticleSystem particlesEffect;
         [SerializeField] private GameObject characterBody;
 
-        private readonly UnityEvent _startEvent = new UnityEvent();
-        public UnityEvent DeathStart => _startEvent;
-        
-        private readonly UnityEvent _endEvent = new UnityEvent();
-        public UnityEvent DeathEnd => _endEvent;
+        public event Action OnDeathStart;
+        public event Action OnDeathEnd;
 
         private void Start()
         {
-            getHitPart.DeathEvent.AddListener(RunShowDeath);
+            getHitPart.OnDeathEvent += RunShowDeath;
         }
 
         private async void RunShowDeath()
@@ -35,11 +33,11 @@ namespace Characters.Death
 
         private async Task ShowDeath()
         {
-            _startEvent.Invoke();
+            OnDeathStart?.Invoke();
             particlesEffect.Play();
             characterBody.SetActive(false);
             await Task.Delay(TimeSpan.FromSeconds(3));
-            _endEvent.Invoke();
+            OnDeathEnd?.Invoke();
         }
     }
 }

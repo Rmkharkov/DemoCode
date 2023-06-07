@@ -30,7 +30,7 @@ namespace Regulators.ItemNumberRegulator
         private void Start()
         {            
             Controller.SubscribeSpawnAccess();
-            GameplayTurnRegulator.Instance.CleanMatchEvent.AddListener(RemoveEnemies);
+            GameplayTurnRegulator.Instance.OnCleanMatchEvent += RemoveEnemies;
         }
 
         private void Update()

@@ -49,8 +49,8 @@ namespace Regulators.ItemNumberRegulator
 
         public void SubscribeSpawnAccess()
         {
-            GameplayTurnRegulator.Instance.StartMatchEvent.AddListener(EnableSpawn);
-            GameplayTurnRegulator.Instance.StopMatchEvent.AddListener(DisableSpawn);
+            GameplayTurnRegulator.Instance.OnStartMatchEvent += EnableSpawn;
+            GameplayTurnRegulator.Instance.OnStopMatchEvent += DisableSpawn;
         }
         
         private void EnableSpawn()

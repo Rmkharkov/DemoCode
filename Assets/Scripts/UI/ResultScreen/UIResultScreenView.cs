@@ -9,7 +9,7 @@ namespace UI.ResultScreen
 {
     public interface IUIResultScreenView
     {
-        UnityEvent ResultPanelClosed { get; }
+        event Action OnResultPanelClosed;
     }
     public class UIResultScreenView : BaseView<UIResultScreenModel, UIResultScreenController>, IUIResultScreenView
     {
@@ -20,11 +20,11 @@ namespace UI.ResultScreen
         [SerializeField] private TextMeshProUGUI scoreTimeText;
         [SerializeField] private Button restartButton;
 
-        private readonly UnityEvent _resultPanelClosed = new UnityEvent();
-        public UnityEvent ResultPanelClosed => _resultPanelClosed;
+        public event Action OnResultPanelClosed;
     
         
         private float _matchStartTime;
+        private Action _onResultPanelClosed1;
 
         public override void Awake()
         {
@@ -35,14 +35,14 @@ namespace UI.ResultScreen
         private void Start()
         {
             restartButton.onClick.AddListener(RestartPressed);
-            GameplayTurnRegulator.Instance.CleanMatchEvent.AddListener(ShowResult);
-            GameplayTurnRegulator.Instance.StartMatchEvent.AddListener(SaveStartTime);
+            GameplayTurnRegulator.Instance.OnCleanMatchEvent += ShowResult;
+            GameplayTurnRegulator.Instance.OnStartMatchEvent += SaveStartTime;
         }
 
         private void RestartPressed()
         {
             resultPanel.SetActive(false);
-            _resultPanelClosed.Invoke();
+            OnResultPanelClosed?.Invoke();
         }
 
         private void ShowResult()

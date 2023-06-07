@@ -30,7 +30,7 @@ namespace Placing
 
         public void RemoveItem(Transform itemTransform, Transform poolParent)
         {
-            var item = _pool.FirstOrDefault(c => c.ItemTransform == itemTransform);
+            var item = _pool.Find(c => c.ItemTransform == itemTransform);
             if (item != null)
             {
                 item.ItemTransform.gameObject.SetActive(false);
@@ -57,7 +57,7 @@ namespace Placing
 
         private GameplayItemLinks ItemFromPool(EGameItem itemType)
         {
-            var toReturn = _pool.FirstOrDefault(c => c.ItemType == itemType);
+            var toReturn = _pool.Find(c => c.ItemType == itemType);
             if (toReturn != null)
             {
                 _pool.Remove(toReturn);

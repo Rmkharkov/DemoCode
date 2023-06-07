@@ -1,6 +1,7 @@
 ﻿using Characters;
 using Characters.Moving;
 using Regulators.ItemNumberRegulator;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Regulators
@@ -10,61 +11,25 @@ namespace Regulators
         void UpdateEnemiesMoves(IMovable[] enemiesMoves);
     }
 
-    public class EnemiesMovingRegulator : MonoBehaviour, IEnemiesMoveRegulator
+    public class EnemiesMovingRegulator : BaseView<EnemiesMovingRegulatorModel, EnemiesMovingRegulatorController>, IEnemiesMoveRegulator
     {
-        private IMovable[] _enemiesMoves;
-        private IMovable _player;
-        private bool _canMove;
-
         private void Start()
         {
-            PlayerRegulatorView.Instance.PlayerUpdated.AddListener(UpdatePlayerLink);
-            GameplayTurnRegulator.Instance.StopMatchEvent.AddListener(DisableMove);
-            GameplayTurnRegulator.Instance.StartMatchEvent.AddListener(EnableMove);
+            PlayerRegulatorView.Instance.OnPlayerUpdated += Controller.UpdatePlayerLink;
+            GameplayTurnRegulator.Instance.OnStopMatchEvent += Controller.DisableMove;
+            GameplayTurnRegulator.Instance.OnStartMatchEvent += Controller.EnableMove;
         }
 
         private void Update()
         {
-            if (!_canMove) return;
+            if (!Model.CanMove) return;
 
-            MoveEnemies();
-        }
-
-        private void MoveEnemies()
-        {
-            if (_enemiesMoves == null || _enemiesMoves.Length == 0)
-                return;
-
-            foreach (var enemyMove in _enemiesMoves)
-            {
-                if (_player != null && enemyMove != null)
-                {
-                    var speed = enemyMove.MoveSpeed;
-                    var direction = _player.Transform.position;
-                    enemyMove.MoveTo(Vector3.MoveTowards(enemyMove.Transform.position, direction,
-                        speed * Time.deltaTime));
-                }
-            }
+            Controller.MoveEnemies();
         }
 
         public void UpdateEnemiesMoves(IMovable[] enemiesMoves)
         {
-            _enemiesMoves = enemiesMoves;
-        }
-
-        private void UpdatePlayerLink(GameplayItemLinks player)
-        {
-            _player = player.Moving;
-        }
-
-        private void EnableMove()
-        {
-            _canMove = true;
-        }
-
-        private void DisableMove()
-        {
-            _canMove = false;
+            Model.EnemiesMoves = enemiesMoves;
         }
     }
 }
