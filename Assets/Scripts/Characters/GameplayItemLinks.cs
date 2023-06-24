@@ -11,8 +11,7 @@ namespace Characters
         public EGameItem ItemType;
         public Transform ItemTransform;
         public IMovable Moving;
-        public IMakeHit MakeHit;
-        public IDamageable GetHit;
+        public IMovableData MovingData;
         public IDeathFlow DeathFlow;
     }
 }

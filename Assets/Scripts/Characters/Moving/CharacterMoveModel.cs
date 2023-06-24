@@ -4,6 +4,5 @@
     public class CharacterMoveModel : BaseModel
     {
         public float MoveSpeed;
-        public float ReactionDelay;
     }
 }

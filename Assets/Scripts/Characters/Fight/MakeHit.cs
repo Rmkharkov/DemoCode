@@ -2,14 +2,19 @@
 
 namespace Characters.Fight
 {
-    public interface IMakeHit
+    public class MakeHit
     {
-        public static void TryMakeHitOnCollider(Collider hit)
+        public void TryMakeHitOnCollider(Collider hit)
         {
             if (hit.TryGetComponent(out IDamageable damageable))
             {
                 damageable.ApplyDamage();
             }
+        }
+
+        public MakeHit() : base()
+        {
+            
         }
     }
 }

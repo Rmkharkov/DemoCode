@@ -3,18 +3,9 @@ using System.Threading.Tasks;
 using Characters;
 using Regulators.ItemNumberRegulator;
 using UI.ResultScreen;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.Events;
 
 namespace Regulators
 {
-    public interface IGameplayTurnRegulator
-    {
-        event Action OnStartMatchEvent;
-        event Action OnCleanMatchEvent;
-        event Action OnStopMatchEvent;
-    }
     public class GameplayTurnRegulator : BaseView<GameplayTurnRegulatorModel, GameplayTurnRegulatorController>, IGameplayTurnRegulator
     {
         public static IGameplayTurnRegulator Instance => _instance;

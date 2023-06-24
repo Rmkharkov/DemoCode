@@ -7,6 +7,7 @@ namespace Regulators
     public class PlayerMovingRegulatorModel : BaseModel
     {
         [HideInInspector] public IMovable PlayerMove;
+        [HideInInspector] public IMovableData PlayerMoveData;
         [HideInInspector] public bool CanMove;
     }
 }

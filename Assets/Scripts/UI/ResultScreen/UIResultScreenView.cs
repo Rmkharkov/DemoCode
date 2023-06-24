@@ -2,15 +2,10 @@
 using Regulators;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace UI.ResultScreen
 {
-    public interface IUIResultScreenView
-    {
-        event Action OnResultPanelClosed;
-    }
     public class UIResultScreenView : BaseView<UIResultScreenModel, UIResultScreenController>, IUIResultScreenView
     {
         public static IUIResultScreenView Instance => _instance;

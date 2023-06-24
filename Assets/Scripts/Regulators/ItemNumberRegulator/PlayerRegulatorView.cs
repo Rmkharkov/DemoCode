@@ -3,22 +3,16 @@ using System.Collections.Generic;
 using Characters;
 using Placing;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Regulators.ItemNumberRegulator
 {
-    public interface IPlayerRegulatorView : IRegulatorView
-    {
-        event Action<GameplayItemLinks> OnPlayerUpdated;
-    }
     public class PlayerRegulatorView : BaseView<PlayerRegulatorModel, PlayerRegulatorController>, IPlayerRegulatorView
     {
         private static PlayerRegulatorView _instance;
         public static IPlayerRegulatorView Instance => _instance;
 
         [SerializeField] private PlacingView placingView;
-        [SerializeField] private PlayerMovingRegulator playerMovingRegulator;
-        [SerializeField] private EnemiesMovingRegulator enemiesMovingRegulator;
+        private IPlacingView PlacingView => placingView;
         
         private readonly List<GameplayItemLinks> _spawned = new List<GameplayItemLinks>();
         public List<GameplayItemLinks> SpawnedItems => _spawned;
@@ -38,7 +32,7 @@ namespace Regulators.ItemNumberRegulator
         
         private void SpawnPlayer()
         {
-            var player = Controller.SpawnPlayer(placingView);
+            var player = Controller.SpawnPlayer(PlacingView);
             if (player != null)
             {
                 _spawned.Add(player);
@@ -48,7 +42,7 @@ namespace Regulators.ItemNumberRegulator
 
         private void RemovePlayer()
         {
-            _spawned.ForEach(c => placingView.Remove(c));
+            _spawned.ForEach(c => PlacingView.Remove(c));
             _spawned.Clear();
         }
     }

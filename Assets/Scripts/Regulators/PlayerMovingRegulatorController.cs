@@ -7,6 +7,7 @@ namespace Regulators
         public void UpdatePlayerLink(GameplayItemLinks player)
         {
             Model.PlayerMove = player.Moving;
+            Model.PlayerMoveData = player.MovingData;
         }
 
         public void EnableMove()

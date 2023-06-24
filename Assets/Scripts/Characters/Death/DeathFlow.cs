@@ -2,16 +2,9 @@
 using System.Threading.Tasks;
 using Characters.Fight;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Characters.Death
 {
-    public interface IDeathFlow
-    {
-        event Action OnDeathStart;
-        event Action OnDeathEnd;
-    }
-
     public class DeathFlow : BaseView<DeathFlowModel, DeathFlowController>, IDeathFlow
     {
         [SerializeField] private CharacterGetHitPart getHitPart;

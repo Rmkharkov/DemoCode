@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Characters;
-using Characters.Moving;
 using Placing;
 using UnityEngine;
 
 namespace Regulators.ItemNumberRegulator
 {
-    public interface IEnemyRegulatorView : IRegulatorView
-    {
-    }
     public class EnemyRegulatorView : BaseView<EnemyRegulatorModel, EnemyRegulatorController>, IEnemyRegulatorView
     {
         private static EnemyRegulatorView _instance;
@@ -17,6 +13,8 @@ namespace Regulators.ItemNumberRegulator
         
         [SerializeField] private PlacingView placingView;
         [SerializeField] private EnemiesMovingRegulator enemiesMovingRegulator;
+        private IPlacingView PlacingView => placingView;
+        private IEnemiesMoveRegulator EnemiesMovingRegulator => enemiesMovingRegulator;
         
         private readonly List<GameplayItemLinks> _spawnedEnemies = new List<GameplayItemLinks>();
         public List<GameplayItemLinks> SpawnedItems => _spawnedEnemies;
@@ -42,37 +40,37 @@ namespace Regulators.ItemNumberRegulator
         private void TrySpawnNextEnemy()
         {
             var enemy = Controller.TrySpawnNextEnemy(
-                _spawnedEnemies.Count(c => c.ItemType == EGameItem.Enemy), placingView);
+                _spawnedEnemies.Count(c => c.ItemType == EGameItem.Enemy), PlacingView);
             if (enemy != null)
             {
                 _spawnedEnemies.Add(enemy);
-                enemiesMovingRegulator.UpdateEnemiesMoves(EnemiesMoves);
+                EnemiesMovingRegulator.UpdateEnemiesMoves(Enemies);
             }
         }
 
         private void TrySpawnNextMine()
         {
             var mine = Controller.TrySpawnNextMine(
-                _spawnedEnemies.Count(c => c.ItemType == EGameItem.Mine), placingView);
+                _spawnedEnemies.Count(c => c.ItemType == EGameItem.Mine), PlacingView);
             if (mine != null)
             {
                 _spawnedEnemies.Add(mine);
-                enemiesMovingRegulator.UpdateEnemiesMoves(EnemiesMoves);
+                EnemiesMovingRegulator.UpdateEnemiesMoves(Enemies);
             }
         }
 
         private void RemoveEnemies()
         {
-            _spawnedEnemies.ForEach(c => placingView.Remove(c));
+            _spawnedEnemies.ForEach(c => PlacingView.Remove(c));
             _spawnedEnemies.Clear();
         }
 
-        private IMovable[] EnemiesMoves
+        private GameplayItemLinks[] Enemies
         {
             get
             {
-                var toReturn = new List<IMovable>();
-                _spawnedEnemies.ForEach(c => toReturn.Add(c.Moving));
+                var toReturn = new List<GameplayItemLinks>();
+                _spawnedEnemies.ForEach(c => toReturn.Add(c));
                 return toReturn.ToArray();
             }
         }

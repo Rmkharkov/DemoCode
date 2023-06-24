@@ -8,16 +8,16 @@ namespace Regulators
     {
         public void MoveEnemies()
         {
-            if (Model.EnemiesMoves == null || Model.EnemiesMoves.Length == 0)
+            if (Model.Enemies == null || Model.Enemies.Length == 0)
                 return;
 
-            foreach (var enemyMove in Model.EnemiesMoves)
+            foreach (var enemy in Model.Enemies)
             {
-                if (Model.Player != null && enemyMove != null)
+                if (Model.Player != null && enemy != null && enemy.MovingData != null)
                 {
-                    var speed = enemyMove.MoveSpeed;
+                    var speed = enemy.MovingData.MoveSpeed;
                     var direction = Model.Player.Transform.position;
-                    enemyMove.MoveTo(Vector3.MoveTowards(enemyMove.Transform.position, direction,
+                    enemy.Moving.MoveTo(Vector3.MoveTowards(enemy.MovingData.Transform.position, direction,
                         speed * Time.deltaTime));
                 }
             }
@@ -25,7 +25,7 @@ namespace Regulators
 
         public void UpdatePlayerLink(GameplayItemLinks player)
         {
-            Model.Player = player.Moving;
+            Model.Player = player.MovingData;
         }
 
         public void EnableMove()

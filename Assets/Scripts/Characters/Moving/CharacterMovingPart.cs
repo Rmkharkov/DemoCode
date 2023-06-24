@@ -2,13 +2,7 @@
 
 namespace Characters.Moving
 {
-    public interface IMovable
-    {
-        void MoveTo(Vector3 target);
-        float MoveSpeed { get; }
-        Transform Transform { get; }
-    }
-    public class CharacterMovingPart : BaseView<CharacterMoveModel, CharacterMoveController>, IMovable
+    public class CharacterMovingPart : BaseView<CharacterMoveModel, CharacterMoveController>, IMovable, IMovableData
     {
         public float MoveSpeed => Model.MoveSpeed;
         public Transform Transform => transform;

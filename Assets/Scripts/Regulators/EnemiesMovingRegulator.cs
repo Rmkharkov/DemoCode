@@ -1,16 +1,8 @@
 ﻿using Characters;
-using Characters.Moving;
 using Regulators.ItemNumberRegulator;
-using UnityEditor.SceneManagement;
-using UnityEngine;
 
 namespace Regulators
 {
-    public interface IEnemiesMoveRegulator
-    {
-        void UpdateEnemiesMoves(IMovable[] enemiesMoves);
-    }
-
     public class EnemiesMovingRegulator : BaseView<EnemiesMovingRegulatorModel, EnemiesMovingRegulatorController>, IEnemiesMoveRegulator
     {
         private void Start()
@@ -27,9 +19,9 @@ namespace Regulators
             Controller.MoveEnemies();
         }
 
-        public void UpdateEnemiesMoves(IMovable[] enemiesMoves)
+        public void UpdateEnemiesMoves(GameplayItemLinks[] enemies)
         {
-            Model.EnemiesMoves = enemiesMoves;
+            Model.Enemies = enemies;
         }
     }
 }

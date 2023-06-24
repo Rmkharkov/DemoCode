@@ -48,8 +48,7 @@ namespace Placing
             {
                 ItemTransform = item.transform,
                 Moving = item.GetComponent<IMovable>(),
-                GetHit = item.GetComponentInChildren<IDamageable>(),
-                MakeHit = item.GetComponentInChildren<IMakeHit>(),
+                MovingData = item.GetComponent<IMovableData>(),
                 DeathFlow = item.GetComponent<IDeathFlow>()
             };
             return toReturn;

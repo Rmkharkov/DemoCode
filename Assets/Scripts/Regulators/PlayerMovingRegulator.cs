@@ -25,9 +25,9 @@ namespace Regulators
             
             if (_playerInputReader.JoystickShift != Vector2.zero)
             {
-                var speed = Model.PlayerMove.MoveSpeed;
-                var direction = Model.PlayerMove.Transform.position + new Vector3(_playerInputReader.JoystickShift.x, 0, _playerInputReader.JoystickShift.y);
-                Model.PlayerMove.MoveTo(Vector3.MoveTowards(Model.PlayerMove.Transform.position, direction, speed*Time.deltaTime)); 
+                var speed = Model.PlayerMoveData.MoveSpeed;
+                var direction = Model.PlayerMoveData.Transform.position + new Vector3(_playerInputReader.JoystickShift.x, 0, _playerInputReader.JoystickShift.y);
+                Model.PlayerMove.MoveTo(Vector3.MoveTowards(Model.PlayerMoveData.Transform.position, direction, speed*Time.deltaTime)); 
             }
         }
     }
