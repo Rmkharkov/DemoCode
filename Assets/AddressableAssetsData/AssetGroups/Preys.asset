@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Preys
+  m_EditorClassIdentifier: 
+  m_GroupName: Preys
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c4f36143c40d527418c9f52289d2b774
+  m_SerializeEntries:
+  - m_GUID: 9c66914c36bb91341b0e02ea08db7118
+    m_Address: Frog
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 919cc57a33d192442b95ed5b321f9db9, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 489ad75db4b68b843838e16fc6dc364f, type: 2}
+    - {fileID: 11400000, guid: 3ec37e3a8c485a249bbec9417f23a083, type: 2}
