@@ -1,17 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Animals;
+using Battle;
 using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Object = UnityEngine.Object;
+using Zenject;
 
 namespace Spawn
 {
     public partial class SpawnerController
     {
-        private List<IAnimalLinks> _liveAnimals = new List<IAnimalLinks>();
+        public readonly List<IAnimalLinks> liveAnimals = new List<IAnimalLinks>();
         private readonly List<IAnimalLinks> _poolAnimals = new List<IAnimalLinks>();
+        private DiContainer _container;
+
+        public void Init(DiContainer container, IDamageManager damageManager, GameObject disposable)
+        {
+            _container = container;
+            damageManager.Damaged.Subscribe(OnDamagedAnimal).AddTo(disposable);
+        }
 
         private async UniTask<IAnimalLinks> GetAnimal(EAnimalType type)
         {
@@ -27,25 +35,32 @@ namespace Spawn
             return toReturn;
         }
 
+        private void OnDamagedAnimal(IDamageable damageable)
+        {
+            var animal = liveAnimals.Find(c => c.Damageable == damageable);
+            HideAnimal(animal);
+        }
+
         private void HideAnimal(IAnimalLinks animalLinks)
         {
-            _liveAnimals.Remove(animalLinks);
+            liveAnimals.Remove(animalLinks);
             _poolAnimals.Add(animalLinks);
             animalLinks.SetMyParent(Model.AnimalsPoolParent);
         }
 
         private void RevealAnimal(IAnimalLinks animalLinks)
         {
-            _liveAnimals.Remove(animalLinks);
-            _poolAnimals.Add(animalLinks);
-            animalLinks.SetMyParent(Model.AnimalsPoolParent);
+            liveAnimals.Add(animalLinks);
+            _poolAnimals.Remove(animalLinks);
+            animalLinks.SetMyParent(Model.AnimalsLiveParent);
         }
         
         public async UniTask<IAnimalLinks> GetNewAnimal(EAnimalType type)
         {
-            var toReturn = Addressables.InstantiateAsync(type.ToString());
-            var cachedObject = (await toReturn.Task).GetComponent<IAnimalLinks>();
-            _liveAnimals.Add(cachedObject);
+            var prefab = await Addressables.LoadAssetAsync<GameObject>(type.ToString());
+            var toReturn = _container.InstantiatePrefabForComponent<AnimalLinksView>(prefab);
+            var cachedObject = toReturn.GetComponent<IAnimalLinks>();
+            liveAnimals.Add(cachedObject);
             return cachedObject;
         }
     }

@@ -8,8 +8,10 @@ namespace Moving
     {
         [SerializeField] private float moveForce;
         public float MoveForce => moveForce;
+        
         [SerializeField] private float jumpUpForce;
-        public float JumpUpForce => moveForce;
+        public float JumpUpForce => jumpUpForce;
+        
         [SerializeField] private float jumpDelayInSec;
         public TimeSpan JumpDelay => TimeSpan.FromSeconds(jumpDelayInSec);
         

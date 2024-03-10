@@ -56,7 +56,7 @@ namespace Moving
             do
             {
                 await UniTask.Yield();
-            } while (MoveState.Value == EMoveState.Jump);
+            } while (MoveState.Value == EMoveState.Jump && !token.IsCancellationRequested);
             StopBody();
         }
 
@@ -69,6 +69,12 @@ namespace Moving
         private void FeltOnFloor()
         {
             MoveState.SetValueAndForceNotify(EMoveState.Stand);
+        }
+
+        public void OnDead()
+        {
+            MoveState.SetValueAndForceNotify(EMoveState.Stand);
+            StopBody();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Collide;
+﻿using Battle;
+using Collide;
 using Moving;
 
 namespace Animals
@@ -9,6 +10,7 @@ namespace Animals
         EAnimalType AnimalType { get; }
         IMovable Movable { get; }
         ICollide Collide { get; }
+        IDamageable Damageable { get; }
 
         void SetAnimal(EAnimalSide animalSide, EAnimalType animalType);
     }

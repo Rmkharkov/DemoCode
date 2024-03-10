@@ -73,7 +73,7 @@ namespace Spawn
 
         private bool IsAnyForbiddenClose(Vector3 position)
         {
-            foreach (var animalLinks in _liveAnimals)
+            foreach (var animalLinks in liveAnimals)
             {
                 if (Vector3.Distance(animalLinks.Movable.Position, position) <
                     UsedSpawnConfig.MinDistanceToSpawnFromOtherObstacles)

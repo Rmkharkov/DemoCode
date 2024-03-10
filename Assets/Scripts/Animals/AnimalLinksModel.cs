@@ -1,4 +1,5 @@
-﻿using Collide;
+﻿using Battle;
+using Collide;
 using Moving;
 using UnityEngine;
 
@@ -18,9 +19,13 @@ namespace Animals
         
         [SerializeField] private MoveItemView movable;
         public IMovable Movable => movable;
+        
         [SerializeField] private CollisionParserView collide;
 
         public ICollide Collide => collide;
+
+        [SerializeField] private DamageableView damageable;
+        public IDamageable Damageable => damageable;
 
         public void SetAnimal(EAnimalSide animalSide, EAnimalType animalType)
         {

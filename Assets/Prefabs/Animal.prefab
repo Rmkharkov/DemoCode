@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8970665794521126732}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,9 +117,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7942802598326767285}
   - component: {fileID: 2440124949043292667}
+  - component: {fileID: 8505432897499576778}
   - component: {fileID: 4705298419818830273}
   - component: {fileID: 3571315397357116186}
-  - component: {fileID: 8505432897499576778}
+  - component: {fileID: 7743658409345050867}
+  - component: {fileID: 5513777165726736907}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Animal
@@ -170,6 +172,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &8505432897499576778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6351057975683107207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd08b507d8f4b8db795d42822de5fd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Model:
+    parentableTransform: {fileID: 7942802598326767285}
+    movable: {fileID: 4705298419818830273}
+    collide: {fileID: 3571315397357116186}
+    damageable: {fileID: 7743658409345050867}
 --- !u!114 &4705298419818830273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Model:
     body: {fileID: 2440124949043292667}
---- !u!114 &8505432897499576778
+--- !u!114 &7743658409345050867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,10 +226,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 6351057975683107207}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd08b507d8f4b8db795d42822de5fd8, type: 3}
+  m_Script: {fileID: 11500000, guid: be662dc30cd045f8bc08590336915a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Model:
-    parentableTransform: {fileID: 7942802598326767285}
-    movable: {fileID: 4705298419818830273}
-    collide: {fileID: 3571315397357116186}
+--- !u!136 &5513777165726736907
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6351057975683107207}
+  m_Material: {fileID: 13400000, guid: d7f526505915fae41b19593619d528ec, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

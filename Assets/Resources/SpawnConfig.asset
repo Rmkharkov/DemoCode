@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ef670da3d04688ae6a3a668e94e2bc, type: 3}
   m_Name: SpawnConfig
   m_EditorClassIdentifier: 
-  minDistanceToSpawnFromOtherObstacles: 0.6
+  minDistanceToSpawnFromOtherObstacles: 1.1
   extremeCoordsForSpawn: {x: 9, y: 4.8}
   spawnDelays: {x: 1, y: 2}
   spawnParameters:
-  - moveConfig: {fileID: 11400000, guid: b598e2f3cc0c6b2429e1cae5180e5571, type: 2}
-    animalConfig: {fileID: 11400000, guid: cb51acfce4c220547aa606b94bdbd784, type: 2}
-  - moveConfig: {fileID: 11400000, guid: b598e2f3cc0c6b2429e1cae5180e5571, type: 2}
-    animalConfig: {fileID: 11400000, guid: e6527db205877cc439f6e0797689e050, type: 2}
+  - animalConfig: {fileID: 11400000, guid: cb51acfce4c220547aa606b94bdbd784, type: 2}
+  - animalConfig: {fileID: 11400000, guid: e6527db205877cc439f6e0797689e050, type: 2}

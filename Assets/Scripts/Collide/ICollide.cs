@@ -5,7 +5,6 @@ namespace Collide
 {
     public interface ICollide
     {
-        ReactiveCommand<IAnimalLinks> CollidedWithAnimal { get; }
         ReactiveCommand CollideWithFloor { get; }
     }
 }
