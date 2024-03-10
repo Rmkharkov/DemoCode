@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Animals;
 using Collide;
 using Spawn;
 using UniRx;
@@ -10,9 +11,9 @@ namespace Battle
     public class DamageManagerView : BaseView<DamageManagerModel, DamageManagerController>, IDamageManager
     {
         public void TryDamageOneOf(ICollide me, ICollide enemy) => Controller.TryDamageOneOf(me, enemy);
-        public bool IsBothPrey(ICollide me, ICollide enemy) => Controller.IsBothPrey(me, enemy);
 
         public ReactiveCommand<IDamageable> Damaged => Controller.Damaged;
+        public ReactiveCommand<IAnimalLinks> WinnerAnimal => Controller.WinnerAnimal;
 
         private ISpawner _spawner;
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();

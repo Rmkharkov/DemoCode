@@ -7,6 +7,7 @@ namespace Battle
     public class DamageableView : BaseView<DamageableModel, DamageableController>, IDamageable
     {
         public ReactiveCommand GetDamaged => Controller.GetDamaged;
+        public bool IsItLive => gameObject != null && gameObject.activeInHierarchy;
 
         private IDamageManager _damageManager;
 

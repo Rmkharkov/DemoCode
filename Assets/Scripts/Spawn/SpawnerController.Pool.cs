@@ -55,7 +55,7 @@ namespace Spawn
             animalLinks.SetMyParent(Model.AnimalsLiveParent);
         }
         
-        public async UniTask<IAnimalLinks> GetNewAnimal(EAnimalType type)
+        private async UniTask<IAnimalLinks> GetNewAnimal(EAnimalType type)
         {
             var prefab = await Addressables.LoadAssetAsync<GameObject>(type.ToString());
             var toReturn = _container.InstantiatePrefabForComponent<AnimalLinksView>(prefab);

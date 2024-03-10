@@ -40,6 +40,7 @@ namespace Battle
         }
         
         public ReactiveCommand<IDamageable> Damaged { get; } = new ReactiveCommand<IDamageable>();
+        public ReactiveCommand<IAnimalLinks> WinnerAnimal { get; } = new ReactiveCommand<IAnimalLinks>();
         private ISpawner _spawner;
 
         private readonly List<LastBattle> _battles = new List<LastBattle>();
@@ -81,10 +82,12 @@ namespace Battle
             if (animals[0].AnimalSide == EAnimalSide.Predator)
             {
                 Damaged.Execute(animals[1].Damageable);
+                WinnerAnimal.Execute(animals[0]);
             } 
             else if (animals[1].AnimalSide == EAnimalSide.Predator)
             {
                 Damaged.Execute(animals[0].Damageable);
+                WinnerAnimal.Execute(animals[1]);
             }
 
             for (var i = _battles.Count - 1; i >= 0; i--)
@@ -94,12 +97,6 @@ namespace Battle
                     _battles.RemoveAt(i);
                 }
             }
-        }
-        
-        public bool IsBothPrey(ICollide me, ICollide enemy)
-        {
-            var animals = _spawner.LiveAnimals.FindAll(c => c.Collide == me || c.Collide == enemy);
-            return animals.Count >= 2;
         }
     }
 }

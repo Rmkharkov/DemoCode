@@ -1,4 +1,5 @@
-﻿using Collide;
+﻿using Animals;
+using Collide;
 using UniRx;
 
 namespace Battle
@@ -6,7 +7,7 @@ namespace Battle
     public interface IDamageManager
     {
         void TryDamageOneOf(ICollide me, ICollide enemy);
-        bool IsBothPrey(ICollide me, ICollide enemy);
         ReactiveCommand<IDamageable> Damaged { get; }
+        ReactiveCommand<IAnimalLinks> WinnerAnimal { get; }
     }
 }
